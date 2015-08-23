@@ -1,11 +1,19 @@
-#The objective of this Programming assignment is to cache a matrix and its inverse
-#   and return the cached inverse if already computed, 
-#   else return its freshly computed inverse
+#The objective of this Programming assignment is to 
+#   1. cache a matrix and its inverse
+#   2. return the cached inverse if already computed, 
+#   3. else return its freshly computed inverse
 
-#There are two functions in this assignment: makeCacheMatrix and cacheSolve
+#There are two functions in this assignment: 
+#   1. makeCacheMatrix 
+#   2. cacheSolve
 
-#The function makeCacheMatrix obtains an input as matrix and caches 
-#   it and its inverse
+#Use the output of the function makeCacheMatrix as an input to cacheSolve
+
+#FUNCTION: makeCacheMatrix 
+#INPUT: matrix
+#OUTOUT: list
+#OBJECTIVE: obtains an input as matrix and returns list of functions
+
 makeCacheMatrix <- function(xmat = matrix()) {
     
     #initializing Cache value to NULL
@@ -32,15 +40,17 @@ makeCacheMatrix <- function(xmat = matrix()) {
          getinv = getinv)
 }
 
-#The function cacheSolve obtains an input as list got from the function makeCacheMatrix
-#   and returns the inverse of the matrix
 
-#If inverse is cached, it returns the cached inverse, else computes the inverse 
+#FUNCTION: cacheSolve 
+#INPUT: list
+#OUTOUT: matrix
+#OBJECTIVE: obtains an input as list of functions and 
+#   returns the inverse of matrix given as input to makeCacheMatrix
 
-cacheSolve <- function(xmat, ...) {
+cacheSolve <- function(retmatlist, ...) {
     
     #using the getinv() function to get the cached inverse
-    mcache <- xmat$getinv()
+    mcache <- retmatlist$getinv()
     
     #if the same is not null, using the cached inverse
     if(!is.null(mcache)) {
@@ -49,11 +59,11 @@ cacheSolve <- function(xmat, ...) {
     }
     
     #if the same is null, computing the inverse
-    matdata <- xmat$get()
+    matdata <- retmatlist$get()
     mcache <- solve(matdata, ...)
     
     #caching the inverse for future purposes
-    xmat$setinv(mcache)
+    retmatlist$setinv(mcache)
     
     #returning the computed inverse
     mcache
